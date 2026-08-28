@@ -10,6 +10,7 @@ const PORT = 8001;
 establishDatabaseConnection(process.env.MONGO_URL).then(() => console.log("Mongodb connected"));
 
 serverApp.use(express.json());
+serverApp.use(express.static('public'));
 
 serverApp.use("/url", shortLinkRoutes);
 
@@ -20,6 +21,8 @@ serverApp.get('/:shortID', async (req, res) => {
             shortID
         },
         { $push: { visitHistory: { timestamp: Date.now() } }, })
+    
+    if(!urlDocument) return res.status(404).json({error: "Short URL not found"});
     res.redirect(urlDocument.redirectURL);
 })
 
