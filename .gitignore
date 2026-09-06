@@ -2,4 +2,4 @@
 .env
 document.md
 .agents
-.graphify-out
+/graphify-out
