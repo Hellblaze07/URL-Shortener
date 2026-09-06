@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 require("dotenv").config();
 const shortLinkRoutes = require("./routes/url.js");
@@ -7,10 +8,12 @@ const serverApp = express();
 const { establishDatabaseConnection } = require('./connect.js');
 const PORT = 8001;
 
-establishDatabaseConnection(process.env.MONGO_URL).then(() => console.log("Mongodb connected"));
+establishDatabaseConnection(process.env.MONGO_URL)
+    .then(() => console.log("Mongodb connected"))
+    .catch((err) => console.error("Mongodb connection error:", err));
 
 serverApp.use(express.json());
-serverApp.use(express.static('public'));
+serverApp.use(express.static(path.join(__dirname, 'public')));
 
 serverApp.use("/url", shortLinkRoutes);
 
@@ -27,3 +30,5 @@ serverApp.get('/:shortID', async (req, res) => {
 })
 
 serverApp.listen(PORT, () => console.log(`Server Started at ${PORT}`));
+
+module.exports = serverApp;
