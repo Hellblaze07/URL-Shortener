@@ -1,27 +1,31 @@
-# URL Shortener 🚀
+# Sniplink — URL Shortener
 
-A fast, secure, and beautiful full-stack URL shortener with built-in click analytics and a stunning glassmorphic user interface.
+A fast, secure URL shortener with built-in click analytics and a professionally designed split-panel interface.
 
-## ✨ Features
-- **Instant URL Shortening**: Convert long, cumbersome URLs into compact, easy-to-share links.
-- **Smart Link Deduplication**: Automatically returns existing short IDs for duplicate URLs to save database space and prevent redundancy.
-- **Intelligent Input Parsing**: Safely extract Short IDs even if users accidentally paste full URLs into the analytics search.
-- **Lightning Fast Redirection**: Highly optimized backend ensuring users get to their destination instantly.
-- **Detailed Analytics**: Track the performance of your links. See total clicks and timestamps for every single visit.
-- **Premium UI**: A gorgeous, responsive Single Page Application (SPA) featuring a dark theme, glassmorphism, and dynamic animations.
-- **One-Click Copy**: Easily copy generated links to your clipboard.
+## Features
 
-## 🛠️ Tech Stack
-- **Frontend**: HTML5, CSS3 (Custom Glassmorphic UI), Vanilla JavaScript
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB (via Mongoose)
-- **Utilities**: dotenv (Environment management), nanoid (ID generation)
+- **Instant URL Shortening** — Convert long URLs into compact, shareable links with a single click.
+- **Smart Link Deduplication** — Automatically returns existing short IDs for duplicate URLs, preventing redundant database entries.
+- **Click Analytics** — Track total clicks and view timestamped visit history for every shortened link.
+- **Intelligent Input Parsing** — Extracts short IDs even when users paste full URLs into the analytics search.
+- **One-Click Copy** — Copy shortened links to clipboard with animated feedback.
+- **Responsive Design** — Split-panel layout on desktop, stacked single-column on mobile.
 
-## 🚀 Getting Started
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Frontend** | HTML5, CSS3 (custom design system), Vanilla JavaScript |
+| **Backend** | Node.js, Express.js |
+| **Database** | MongoDB (via Mongoose) |
+| **Fonts** | Outfit, Work Sans, JetBrains Mono (Google Fonts) |
+
+## Getting Started
 
 ### Prerequisites
-- Node.js installed on your machine
-- A MongoDB cluster (e.g., MongoDB Atlas)
+
+- Node.js (v18+)
+- A MongoDB cluster (e.g., [MongoDB Atlas](https://www.mongodb.com/atlas))
 
 ### Installation
 
@@ -31,12 +35,12 @@ A fast, secure, and beautiful full-stack URL shortener with built-in click analy
    cd URL-Shortener
    ```
 
-2. Install the dependencies:
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-3. Create a `.env` file in the root of the project and add your MongoDB connection string:
+3. Create a `.env` file in the project root:
    ```env
    MONGO_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/URL-SHORTENER?retryWrites=true&w=majority
    ```
@@ -46,17 +50,44 @@ A fast, secure, and beautiful full-stack URL shortener with built-in click analy
    npm start
    ```
 
-5. Open your browser and navigate to:
+5. Open your browser at:
    ```
    http://localhost:8001
    ```
 
-## 📂 Project Structure
-- `public/` - Contains the frontend SPA (HTML, CSS, JS).
-- `models/` - Mongoose database schemas.
-- `routes/` - Express route definitions.
-- `controllers/` - Core API logic for URL generation and analytics.
-- `index.js` - Server entry point and configuration.
+## API Endpoints
 
-## 📄 License
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/url` | Create a shortened URL. Body: `{ "url": "https://..." }` |
+| `GET` | `/url/analytics/:shortID` | Get click count and visit history for a short ID |
+| `GET` | `/:shortID` | Redirect to the original URL |
+
+## Project Structure
+
+```
+├── public/              Frontend SPA (HTML, CSS, JS)
+│   ├── index.html       Split-panel layout with brand + app panels
+│   ├── style.css        Design system (tokens, layout, components)
+│   └── script.js        Tab switching, API calls, copy, toast messages
+├── controllers/         Core API logic (shorten + analytics)
+├── models/              Mongoose schemas
+├── routes/              Express route definitions
+├── connect.js           MongoDB connection helper
+├── index.js             Server entry point
+└── vercel.json          Vercel deployment config
+```
+
+## Design
+
+The frontend uses a **split-panel layout** with a dark theme and emerald (`#10B981`) accent color:
+
+- **Left panel** — Brand identity with dot-grid pattern, headline, and feature pills
+- **Right panel** — Functional tool with tab-based navigation (Shorten / Analytics)
+- **Typography** — Outfit (headings), Work Sans (body), JetBrains Mono (URLs)
+- **Interactions** — Animated count-up for click stats, inline toast errors, copy feedback with checkmark tooltip
+- **Responsive** — Collapses to single column at 768px
+
+## License
+
 This project is licensed under the ISC License.
