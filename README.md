@@ -1,4 +1,4 @@
-# Sniplink — URL Shortener
+# Shortlink — URL Shortener
 
 A fast, secure URL shortener with built-in click analytics and a professionally designed split-panel interface.
 
